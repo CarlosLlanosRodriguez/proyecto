@@ -1,3 +1,4 @@
+const jwt = require('jsonwebtoken');
 const { request, response } = require('express');
 const UsuarioModel = require('../models/usuario.model');
 
@@ -31,9 +32,41 @@ class AuthController {
                 });
             }
 
-            res.status(200).json({
-                usuario
+            const payload = {
+                id: usuario.id,
+                email: usuario.email,
+                rol_id: usuario.rol_id,
+                rol_nombre: usuario.rol_nombre
+            };
+
+            const token = jwt.sign(
+                payload,
+                process.env.JWT_SECRET,
+                { expiresIn: process.env.JWT_EXPIRES_IN || '24h' }
+            );
+
+            const usuarioRepuesta = {
+                id: usuario.id,
+                nombre: usuario.nombre,
+                apellido: usuario.apellido,
+                email: usuario.email,
+                telefono: usuario.telefono,
+                rol: {
+                    id: usuario.rol_id,
+                    nombre: usuario.rol_nombre,
+                    descripcion: usuario.rol_descripcion
+                }
+            };
+
+            return res.status(200).json({
+                success: true,
+                message: 'Login exitoso',
+                data: {
+                    token,
+                    usuario: usuarioRepuesta
+                }
             });
+
         } catch(error) {
             console.error('Error en login: ', error);
             return res.status(500).json({
