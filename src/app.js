@@ -31,8 +31,10 @@ app.get('/info', (req, res) => {
 // Rutas de la API
 //Importar la ruta
 const authRoutes = require('./routes/auth.routes');
+const usuariosRoutes = require('./routes/usuarios.routes')
 
 //Usar ruta
 app.use('/api/v1/auth', authRoutes);
+app.use('/api/v1/usuarios', usuariosRoutes);
 
 module.exports = app;
