@@ -36,6 +36,7 @@ const torneosRoutes = require('./routes/torneos.routes');
 const equiposRoutes = require('./routes/equipos.routes');
 const jugadoresRoutes = require('./routes/jugadores.routes');
 const partidosRoutes = require('./routes/partidos.routes');
+const eventosRoutes = require('./routes/eventos.routes');
 
 //Usar ruta
 app.use('/api/v1/auth', authRoutes);
@@ -44,5 +45,6 @@ app.use('/api/v1/torneos', torneosRoutes);
 app.use('/api/v1/equipos', equiposRoutes);
 app.use('/api/v1/jugadores', jugadoresRoutes);
 app.use('/api/v1/partidos', partidosRoutes);
+app.use('/api/v1/eventos', eventosRoutes);
 
 module.exports = app;
